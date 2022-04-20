@@ -36,8 +36,10 @@ def print_template_table(templates):
 
     try:
         print(tabulate.tabulate(table, headers, tablefmt="fancy_grid"))
+        return True
     except UnicodeEncodeError:
         print(tabulate.tabulate(table, headers, tablefmt="grid"))
+        return True
 
 
 def print_device_table(devices):

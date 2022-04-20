@@ -3,6 +3,7 @@ import argparse
 import logging
 import yaml
 import helpers
+import time
 
 
 def parse_arguments():
@@ -89,28 +90,32 @@ if __name__ == "__main__":
     else:
         log = init_logger()
 
+    log.info(f'Viptela ConfigSync script has started.')
     # Instantiate ConfigSync which will launch connection to Viptela, setup logging, and
     # load configuration from config file.
     cs = ConfigSync(config=args.config, log=log)
+    # Examples
     # Get Device info for vedges and controllers
     vedge_list, controller_list = cs.cs_get_all_device_info()
     vedge_table = helpers.print_device_table(vedge_list)
     controller_table = helpers.print_device_table(controller_list)
     # Get template info and print using table parser
+    log.info(f'Gathering template info. This may take a moment.')
     device_templates = cs.cs_get_all_template_info()
     helpers.print_template_table(device_templates)
-
     # Get Configs for devices
+    log.info(f'Gathering config files from devices. This may take a moment.')
     vedge_configs = cs.cs_get_config_info(vedge_table)
     controller_configs = cs.cs_get_config_info(controller_table)
 
     # Save Configs for devices to disk
+    log.info(f'Saving config files to disk.')
     for device in vedge_configs:
         cs.log.debug(f'Writing file {device["device_name"]} to disk.')
         helpers.save_to_text(device['device_name'], device['config'])
     for device in controller_configs:
         cs.log.debug(f'Writing file {device["device_name"]} to disk.')
         helpers.save_to_text(device['device_name'], device['config'])
-
+    log.info(f'Viptela ConfigSync script has finished.')
 
 

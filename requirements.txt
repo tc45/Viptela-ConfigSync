@@ -1,0 +1,5 @@
+jupyterlab>=3.3.4
+PyYAML>=6.0
+requests>=2.27.1
+tabulate>=0.8.9
+viptela>=0.3.9
