@@ -3,7 +3,7 @@ Config-Sync tool.
 
 Viptela ConfigSync is a common framework being developed intended to give a 
 standards based approach to working with REST API for configuration tasks with 
-\network equipment.  ConfigSync comes pre-built with a few functions to serve 
+network equipment.  ConfigSync comes pre-built with a few functions to serve 
 as examples on building new purposes for the tool.  
 
 Viptela ConfigSync is composed of four files that will be used when interacting
