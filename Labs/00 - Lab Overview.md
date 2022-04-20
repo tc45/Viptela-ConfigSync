@@ -21,12 +21,12 @@ Launching the example config_sync will do a few automatic functions:
 3. Instantiate the ConfigSync object using the .cfg file specified on CLI or
    'viptela.cfg' will be used as default.
 4. Run Example Commands:
-  * Get Device info for vedges and controllers
-    * Print vedge and controller data using table output in helper function
-  * Get all template info
-    * Print template info using helper function
-  * Get all running-config for vedge and controllers
-    * Save vedge and controller info to text file
+    * Get Device info for vedges and controllers
+      * Print vedge and controller data using table output in helper function
+    * Get all template info
+      * Print template info using helper function
+    * Get all running-config for vedge and controllers
+      * Save vedge and controller info to text file
     
 ### viptela.py
 This file houses all of the viptela related functions.  Any function, whether using 
