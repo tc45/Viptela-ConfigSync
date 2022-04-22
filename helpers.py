@@ -1,11 +1,31 @@
 import tabulate
+import os
+import time
 
 
-def save_to_text(filename, payload):
+def check_directory_exist(path):
+    '''
+    Check whether path exist.  Return True/False based on result.
+    :param path: directory to check if it exist.
+    :return: True or False
+    '''
+
+    isdir = os.path.isdir(path)
+    return isdir
+
+
+def create_directory(path):
+    # Create directory if it doesn't exist.
+    return os.makedirs(path)
+
+
+def save_to_text(filename, path="", payload=""):
     if right(filename, 4) != ".txt":
         filename = filename + ".txt"
-
-    text_file = open(filename, 'w')
+    completeFilename = filename
+    if path != "":
+        completeFilename = os.path.join(path, filename).replace('\\', '/')
+    text_file = open(completeFilename, 'w')
     text_file.write(payload)
     text_file.close()
 
@@ -43,7 +63,6 @@ def print_template_table(templates):
 
 
 def print_device_table(devices):
-    print("Formatting device output")
 
     headers = [
         'Host-Name',
@@ -86,8 +105,10 @@ def print_device_table(devices):
 
     try:
         print(tabulate.tabulate(table, headers, tablefmt="fancy_grid"))
+        time.sleep(1)
     except UnicodeEncodeError:
         print(tabulate.tabulate(table, headers, tablefmt="grid"))
+        time.sleep(1)
     return return_list
 
 
