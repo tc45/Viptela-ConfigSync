@@ -163,6 +163,13 @@ jupyter lab
     
 4.  Follow instructions in the lab
 
+    * Lab00 - Using Viptela ConfigSync.ipynb
+    * Labs/lab01/Lab 01 - Understanding the framework.ipynb
+    * Labs/lab02/Lab 02 - 
+    * Labs/lab03/Lab 03 - 
+    * Labs/lab04/Lab 04 - 
+    * Labs/lab05/Lab 05 - 
+    
 
 
 
