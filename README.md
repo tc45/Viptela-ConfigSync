@@ -11,7 +11,7 @@ Viptela ConfigSync is composed of four files that will be used when interacting
  with devices: config_sync.py, viptela.py, helpers.py, and viptela.cfg. Each file 
 has a unique purpose in this framework.
 
-### config_sync.py
+#### config_sync.py
 This file is the main program for the framework, and the file which will be launched
 when the application is ready.  All three other files are pulled into this file (.py files with 
 import statements and .cfg file is being read as a YAML file into a dictionary).
@@ -29,20 +29,20 @@ Launching the example config_sync will do a few automatic functions:
     * Get all running-config for vedge and controllers
       * Save vedge and controller info to text file
     
-### viptela.py
+#### viptela.py
 This file houses all of the viptela related functions.  Any function, whether using 
 the SDK or generic REST API calls should be made here.  Put any new functions under 
 the ViptelaClient class to fully utilize common elements.  Initializing this class 
 only instantiates the object.  You have to call the class function login() to get 
 cookies and proper XSRF/CSRF tokens.  
 
-### helpers.py
+#### helpers.py
 This file is used to contain all of the functions that manipulate data received.  This 
 can be but not limited to saving data to files, printing data to console, exporting 
 to CSV or Excel, or just computational functions.  The main purpose of helpers.py 
 is to keep config_sync.py cleaner.
 
-### viptela.cfg
+#### viptela.cfg
 All config parameters are kept in the .cfg file currently.  Future iterations will 
 include getpass and environmental variable support.  Specify any required variables 
 and include any additional variables that may be needed for your project.  This file 
