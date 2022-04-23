@@ -155,7 +155,7 @@ pip install jupyterlab
 2. Launch Jupyter Lab.  This will open a browser to the starting URL.  A link will also be displayed in the CLI.
 
 ```commandline
-juptyer lab
+jupyter lab
 ```
 
 3.  Locate the lab you want to do using the file explorer window.  Jupyter Lab files end in 
