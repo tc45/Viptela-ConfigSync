@@ -62,16 +62,20 @@ class ConfigSync:
         viptela.login_sdk()
         return viptela
 
-    def cs_route_lookup(self, route):
+    def cs_get_all_device_info(self):
         vedges = self.viptela.get_devices_list('vedges')
-        print(f'~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Route lookup: {route} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        controllers = self.viptela.get_devices_list('controllers')
+        return vedges, controllers
+
+    def cs_route_lookup(self, route, device_list):
+        log.debug(f'Looking up route for {route}')
         route_list = []
-        for device in vedges:
+        for device in device_list:
             if 'host-name' in device and 'system-ip' in device:
                 routes = self.viptela.get_route_table(device['system-ip'])
-                for x in routes:
-                    if ipaddress.ip_address(route) in ipaddress.ip_network(x['route-destination-prefix']):
-                        route_list.append(x)
+                for route in routes:
+                    if ipaddress.ip_address(route) in ipaddress.ip_network(route['route-destination-prefix']):
+                        route_list.append(route)
         return route_list
 
 
@@ -89,10 +93,14 @@ if __name__ == "__main__":
     cs = ConfigSync(config=args.config, log=log)
     # Start custom scripting here.  Use the CS object to interact with functions above or pull modules
     # directly from the helper file.
+    # Get Device info for vedges and controllers
+    log.debug(f'Gathering all device data for vEdge and controllers.')
+    vedge_list, controller_list = cs.cs_get_all_device_info()
     log.debug(f'Gathering Routes from vEdges.')
     # Print Route information if requested
-    if type(args.route) == str:
-        helpers.print_route_list(cs.cs_route_lookup(args.route))
+    routes_to_lookup = args.route
+    if type(routes_to_lookup) == str:
+        helpers.print_route_list(cs.cs_route_lookup(routes_to_lookup, vedge_list))
 
     log.info(f'Viptela ConfigSync finished.')
 
