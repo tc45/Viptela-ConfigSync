@@ -62,6 +62,18 @@ class ConfigSync:
         viptela.login_sdk()
         return viptela
 
+    def cs_route_lookup(self, route):
+        vedges = self.viptela.get_devices_list('vedges')
+        print(f'~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Route lookup: {route} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        route_list = []
+        for device in vedges:
+            if 'host-name' in device and 'system-ip' in device:
+                routes = self.viptela.get_route_table(device['system-ip'])
+                for x in routes:
+                    if ipaddress.ip_address(route) in ipaddress.ip_network(x['route-destination-prefix']):
+                        route_list.append(x)
+        return route_list
+
 
 if __name__ == "__main__":
     args = parse_arguments()
