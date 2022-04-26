@@ -35,7 +35,8 @@ class ViptelaClient:
         self.log.debug(f'Viptela provided authentication cookie: {self.session.cookies._cookies[self.host]["/"]["JSESSIONID"]}.')
 
     def get_all_tloc_info(self):
-        url = f'{self.base_url}dataservice/device/tlocs'
+        url = f'{self.base_url}dataservice/device/tloc'
         response = HttpMethods(self.session, url).request('GET', timeout=60)
         result = ParseMethods.parse_data(response)
-        return response
+        return response['json']['data']
+

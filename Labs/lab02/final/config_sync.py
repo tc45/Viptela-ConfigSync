@@ -76,7 +76,9 @@ if __name__ == "__main__":
     cs = ConfigSync(config=args.config, log=log)
     # Start custom scripting here.  Use the CS object to interact with functions above or pull modules
     # directly from the helper file.
-    print(cs.cs_get_all_tloc_info())
+    tlocs = cs.cs_get_all_tloc_info()
+    tloc_count = helpers.count_tlocs(tlocs)
+    helpers.parse_tlocs(tloc_count)
 
 
     log.info(f'Viptela ConfigSync finished.')
