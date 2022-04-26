@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Print Route information if requested
     routes_to_lookup = args.route
     routes = cs.cs_get_route_table_all(routes_to_lookup, vedge_list)
-    print(routes)
+    helpers.print_route_list(routes)
     if type(routes_to_lookup) == str:
         helpers.print_route_list(cs.cs_route_lookup(routes_to_lookup, vedge_list))
 
