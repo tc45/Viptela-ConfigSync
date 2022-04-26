@@ -30,3 +30,4 @@ def print_route_list(route_list):
     except UnicodeEncodeError:
         print(tabulate.tabulate(table, headers, tablefmt="grid"))
         time.sleep(1)
+

@@ -62,31 +62,6 @@ class ConfigSync:
         viptela.login_sdk()
         return viptela
 
-    def cs_get_all_device_info(self):
-        vedges = self.viptela.get_devices_list('vedges')
-        controllers = self.viptela.get_devices_list('controllers')
-        return vedges, controllers
-
-    def cs_get_route_table_all(self, route, device_list):
-        log.debug(f'Looking up all routes in vManage')
-        route_list = []
-        for device in device_list:
-            if 'host-name' in device and 'system-ip' in device:
-                routes = self.viptela.get_route_table
-                route_list.append(route)
-        return route_list
-
-    def cs_route_lookup(self, route, device_list):
-        log.debug(f'Looking up route for {route}')
-        route_list = []
-        for device in device_list:
-            if 'host-name' in device and 'system-ip' in device:
-                routes = self.viptela.get_route_table(device['system-ip'])
-                for route in routes:
-                    if ipaddress.ip_address(route) in ipaddress.ip_network(route['route-destination-prefix']):
-                        route_list.append(route)
-        return route_list
-
 
 if __name__ == "__main__":
     args = parse_arguments()
@@ -103,15 +78,10 @@ if __name__ == "__main__":
     # Start custom scripting here.  Use the CS object to interact with functions above or pull modules
     # directly from the helper file.
     # Get Device info for vedges and controllers
-    log.debug(f'Gathering all device data for vEdge and controllers.')
-    vedge_list, controller_list = cs.cs_get_all_device_info()
-    log.debug(f'Gathering Routes from vEdges.')
     # Print Route information if requested
-    routes_to_lookup = args.route
-    routes = cs.cs_get_route_table_all(routes_to_lookup, vedge_list)
-    helpers.print_route_list(routes)
-    if type(routes_to_lookup) == str:
-        helpers.print_route_list(cs.cs_route_lookup(routes_to_lookup, vedge_list))
+    log.debug(f'Gathering Routes from vEdges.')
+    if type(args.route) == str:
+        helpers.print_route_list(cs.cs_route_lookup(args.route))
 
     log.info(f'Viptela ConfigSync finished.')
 

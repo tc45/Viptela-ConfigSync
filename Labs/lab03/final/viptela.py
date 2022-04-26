@@ -50,10 +50,10 @@ class ViptelaClient:
         device_list = device.get_device_list(type)
         return device_list
 
+
     def get_route_table(self, system_ip):
         '''
         Get route table retrieves the routes from selected vedge for later manipulation.
-
         :param type: DeviceID: DeviceIP address
         :return:
             result (list): route_list
