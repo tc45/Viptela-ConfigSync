@@ -1,6 +1,7 @@
 import tabulate
 import time
 
+
 def print_route_list(route_list):
 
     headers = [
